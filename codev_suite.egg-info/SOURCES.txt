@@ -19,3 +19,5 @@ codev_suite/core/__init__.py
 codev_suite/core/parser.py
 codev_suite/visualization/__init__.py
 codev_suite/visualization/graphs.py
+codev_suite/visualization/metrics_viz.py
+tests/test_parser.py
