@@ -6,6 +6,8 @@ from rich.syntax import Syntax
 from ..core.parser import CodeParser
 from ..analyzers.metrics import MetricsAnalyzer
 from ..analyzers.smells import CodeSmellDetector
+from ..analyzers.bugs import BugDetector
+from ..visualization.graphs import DependencyGraphGenerator
 from ..ai.engine import AIEngine
 import os
 
@@ -36,9 +38,12 @@ def analyze(file_path, ai):
         complexity = metrics_analyzer.analyze_complexity()
         ma_index = metrics_analyzer.analyze_maintainability()
 
-        # 3. Smells
+        # 3. Smells & Bugs
         detector = CodeSmellDetector()
         smells = detector.check(parser.tree)
+        
+        bug_detector = BugDetector()
+        bugs = bug_detector.check(parser.tree)
 
         # Output Results
         # Complexity Table
@@ -59,8 +64,26 @@ def analyze(file_path, ai):
             console.print("\n[bold red]Detected Code Smells:[/bold red]")
             for smell in smells:
                 console.print(f"- [yellow]{smell['type']}[/yellow] at line {smell['line']}: {smell['details']}")
-        else:
-            console.print("\n[green]No common code smells detected![/green]")
+        
+        # Bugs
+        if bugs:
+            console.print("\n[bold dark_orange]Potential Bugs:[/bold dark_orange]")
+            for bug in bugs:
+                console.print(f"- [red]{bug['type']}[/red] at line {bug['line']}: {bug['details']}")
+
+        if not smells and not bugs:
+            console.print("\n[green]No common code smells or bugs detected![/green]")
+
+@cli.command()
+@click.argument('dir_path', type=click.Path(exists=True))
+@click.option('--out', default='dependency_graph.png', help="Output file path")
+def graph(dir_path, out):
+    """Generate a dependency graph for a directory."""
+    console.print(Panel(f"[bold blue]Generating Dependency Graph for:[/bold blue] {dir_path}", expand=False))
+    generator = DependencyGraphGenerator(dir_path)
+    generator.build_graph()
+    path = generator.visualize(out)
+    console.print(f"[green]Graph saved to {path}[/green]")
 
         # 4. AI Insights
         if ai:
