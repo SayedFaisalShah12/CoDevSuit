@@ -74,17 +74,6 @@ def analyze(file_path, ai):
         if not smells and not bugs:
             console.print("\n[green]No common code smells or bugs detected![/green]")
 
-@cli.command()
-@click.argument('dir_path', type=click.Path(exists=True))
-@click.option('--out', default='dependency_graph.png', help="Output file path")
-def graph(dir_path, out):
-    """Generate a dependency graph for a directory."""
-    console.print(Panel(f"[bold blue]Generating Dependency Graph for:[/bold blue] {dir_path}", expand=False))
-    generator = DependencyGraphGenerator(dir_path)
-    generator.build_graph()
-    path = generator.visualize(out)
-    console.print(f"[green]Graph saved to {path}[/green]")
-
         # 4. AI Insights
         if ai:
             console.print("\n[bold purple]Requesting AI Insights...[/bold purple]")
@@ -98,6 +87,20 @@ def graph(dir_path, out):
 
     except Exception as e:
         console.print(f"[bold red]Error:[/bold red] {str(e)}")
+
+@cli.command()
+@click.argument('dir_path', type=click.Path(exists=True))
+@click.option('--out', default='dependency_graph.png', help="Output file path")
+def graph(dir_path, out):
+    """Generate a dependency graph for a directory."""
+    console.print(Panel(f"[bold blue]Generating Dependency Graph for:[/bold blue] {dir_path}", expand=False))
+    try:
+        generator = DependencyGraphGenerator(dir_path)
+        generator.build_graph()
+        path = generator.visualize(out)
+        console.print(f"[green]Graph saved to {path}[/green]")
+    except Exception as e:
+        console.print(f"[bold red]Error generating graph:[/bold red] {str(e)}")
 
 if __name__ == '__main__':
     cli()
