@@ -2,15 +2,15 @@
 
 CoDevSuite is an AI-powered developer productivity tool designed to reduce code complexity and provide deep insights into software architecture.
 
-## Phase 1: Foundation & Static Analysis
-- [ ] Initialize project structure and environment.
-- [ ] Implement AST-powered code parser.
-- [ ] Integrate complexity metrics (Cyclomatic Complexity, Halstead Metrics).
-- [ ] Create a basic CLI for file analysis.
+## Phase 1: Foundation & Static Analysis [IN PROGRESS]
+- [x] Initialize project structure and environment.
+- [x] Implement AST-powered code parser.
+- [x] Integrate complexity metrics (Cyclomatic Complexity, Halstead Metrics).
+- [x] Create a basic CLI for file analysis.
 
-## Phase 2: Structural Analysis & Code Smells
-- [ ] Implement dependency graph generation (imports analysis).
-- [ ] Develop rule-based code smell detection (long methods, large classes, deep nesting).
+## Phase 2: Structural Analysis & Code Smells [IN PROGRESS]
+- [x] Implement dependency graph generation (imports analysis).
+- [x] Develop rule-based code smell detection (long methods, large classes, deep nesting).
 - [ ] Identify potential bugs (unused variables, reachable code).
 
 ## Phase 3: AI-Powered Insights
