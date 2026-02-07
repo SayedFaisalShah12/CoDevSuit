@@ -14,9 +14,10 @@ class MetricsAnalyzer:
         Calculates Cyclomatic Complexity for each block.
         """
         visitor = ComplexityVisitor.from_code(self.source_code)
+        type_map = {'F': 'Function', 'C': 'Class', 'M': 'Method'}
         return [
             {
-                "type": block.type,
+                "type": type_map.get(getattr(block, 'letter', 'F'), 'Block'),
                 "name": block.name,
                 "complexity": block.complexity,
                 "rank": block.rank,
