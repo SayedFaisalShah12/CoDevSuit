@@ -13,7 +13,14 @@ class MetricsAnalyzer:
         """
         Calculates Cyclomatic Complexity for each block.
         """
-        from radon.complexity import rank_cc
+        def get_rank(cc):
+            if cc <= 5: return 'A'
+            elif cc <= 10: return 'B'
+            elif cc <= 20: return 'C'
+            elif cc <= 30: return 'D'
+            elif cc <= 40: return 'E'
+            return 'F'
+
         visitor = ComplexityVisitor.from_code(self.source_code)
         type_map = {'F': 'Function', 'C': 'Class', 'M': 'Method'}
         return [
@@ -21,7 +28,7 @@ class MetricsAnalyzer:
                 "type": type_map.get(getattr(block, 'letter', 'F'), 'Block'),
                 "name": block.name,
                 "complexity": block.complexity,
-                "rank": rank_cc(block.complexity),
+                "rank": get_rank(block.complexity),
                 "lineno": block.lineno
             }
             for block in visitor.blocks
