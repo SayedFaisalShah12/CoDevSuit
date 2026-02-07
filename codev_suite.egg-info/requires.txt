@@ -1,0 +1,10 @@
+radon
+mccabe
+networkx
+rich
+google-generativeai
+python-dotenv
+click
+matplotlib
+plotly
+pandas

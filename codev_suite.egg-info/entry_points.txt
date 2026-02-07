@@ -1,0 +1,2 @@
+[console_scripts]
+codev = codev_suite.cli.main:cli
