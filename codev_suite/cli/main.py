@@ -3,12 +3,12 @@ from rich.console import Console
 from rich.table import Table
 from rich.panel import Panel
 from rich.syntax import Syntax
-from ..core.parser import CodeParser
-from ..analyzers.metrics import MetricsAnalyzer
-from ..analyzers.smells import CodeSmellDetector
-from ..analyzers.bugs import BugDetector
-from ..visualization.graphs import DependencyGraphGenerator
-from ..ai.engine import AIEngine
+from codev_suite.core.parser import CodeParser
+from codev_suite.analyzers.metrics import MetricsAnalyzer
+from codev_suite.analyzers.smells import CodeSmellDetector
+from codev_suite.analyzers.bugs import BugDetector
+from codev_suite.visualization.graphs import DependencyGraphGenerator
+from codev_suite.ai.engine import AIEngine
 import os
 
 console = Console()

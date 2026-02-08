@@ -1,13 +1,13 @@
 import streamlit as st
 import os
 import tempfile
-from ..core.parser import CodeParser
-from ..analyzers.metrics import MetricsAnalyzer
-from ..analyzers.smells import CodeSmellDetector
-from ..analyzers.bugs import BugDetector
-from ..ai.engine import AIEngine
-from ..visualization.metrics_viz import MetricsVisualizer
-from ..visualization.graphs import DependencyGraphGenerator
+from codev_suite.core.parser import CodeParser
+from codev_suite.analyzers.metrics import MetricsAnalyzer
+from codev_suite.analyzers.smells import CodeSmellDetector
+from codev_suite.analyzers.bugs import BugDetector
+from codev_suite.ai.engine import AIEngine
+from codev_suite.visualization.metrics_viz import MetricsVisualizer
+from codev_suite.visualization.graphs import DependencyGraphGenerator
 
 st.set_page_config(page_title="CoDevSuite - AI Code Intelligence", layout="wide")
 
@@ -30,6 +30,7 @@ if uploaded_file is not None:
         
     # Analysis
     parser = CodeParser(source_code=content)
+    parser.parse()  # Populate the AST tree
     metrics_analyzer = MetricsAnalyzer(content)
     complexity = metrics_analyzer.analyze_complexity()
     mi_score = metrics_analyzer.analyze_maintainability()
